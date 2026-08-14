@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Project Task — Chest X-ray Disease Detection (CheXNet)</title>
+<style>
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#0f2233;line-height:1.55;margin:0;background:#eef4f8}
+  .wrap{max-width:900px;margin:0 auto;padding:26px 20px 70px}
+  header{background:linear-gradient(135deg,#0b4f6c,#1789a6);color:#fff;border-radius:16px;padding:24px 26px;margin-bottom:18px}
+  header h1{margin:0 0 6px;font-size:24px}header p{margin:0;opacity:.93;font-size:14px}
+  .badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:3px 11px;font-size:12px;margin:8px 5px 0 0}
+  h2{font-size:19px;color:#0b4f6c;border-bottom:2px solid #cfe3ec;padding-bottom:6px;margin:28px 0 12px}
+  p{margin:8px 0}
+  .goal{background:#e6f3f7;border-left:4px solid #1789a6;border-radius:8px;padding:14px 18px;font-size:15px}
+  .disc{background:#fff4e5;border-left:4px solid #e08600;border-radius:8px;padding:12px 16px;margin:14px 0;font-size:13.5px}
+  ol,ul{margin:8px 0;padding-left:22px}li{margin:6px 0}
+  .step{font-weight:700;color:#0b4f6c}
+  table{border-collapse:collapse;width:100%;margin:12px 0;font-size:13.5px;background:#fff}
+  th,td{border:1px solid #d3e3ea;padding:8px 10px;text-align:left}
+  th{background:#e6f0f5;color:#0b4f6c}td.pts{text-align:center;font-weight:700;white-space:nowrap}
+  .pill{display:inline-block;background:#e6f0f5;border:1px solid #cadfe8;border-radius:6px;padding:1px 7px;font-size:12px;font-family:Consolas,monospace}
+  .warn{background:#fdeeee;border-left:4px solid #c0392b;border-radius:8px;padding:12px 16px;margin:12px 0}
+  a{color:#1789a6}.rule{color:#4a6472}
+</style></head><body><div class="wrap">
+
+<header>
+  <h1>Project Task — Chest X-ray Disease Detection (CheXNet)</h1>
+  <p>Build a model that reads a chest X-ray, predicts diseases, explains itself, and lives in a real web app.</p>
+  <span class="badge">Individual / pair project</span>
+  <span class="badge">Mid-level computer vision</span>
+  <span class="badge">Real paper + real dataset</span>
+  <span class="badge">Free tools · weak laptop OK</span>
+</header>
+
+<div class="disc"><b>Medical disclaimer (must be in your submission):</b> this is an <b>educational</b> project.
+Your model is NOT a medical device and must never be used for real diagnosis.</div>
+
+<div class="goal"><b>Your goal:</b> reproduce the core of <b>CheXNet</b> — given a chest X-ray, predict the probability
+of 14 thoracic diseases, show a <b>heatmap</b> of where the model looked, and <b>deploy it as a real web app</b>
+(your own frontend + a backend API).</div>
+
+<h2>The paper &amp; the data</h2>
+<p><b>You need two things:</b> read the <b>paper</b>, and download <b>ONE</b> dataset. The sample and the full set are
+the <b>same data in two sizes</b> — you do not need both.</p>
+<table>
+  <tr><th>Thing</th><th>Use it?</th><th>Where</th></tr>
+  <tr><td>Paper — CheXNet (Rajpurkar et al., 2017)</td><td><b>Read it</b> — everyone</td><td><a href="https://stanfordmlgroup.github.io/projects/chexnet/">stanfordmlgroup.github.io/projects/chexnet</a> · <a href="https://arxiv.org/abs/1711.05225">arXiv 1711.05225</a></td></tr>
+  <tr><td>Dataset — <b>sample</b> (5,606 images, ~1.7 GB)</td><td><b>&larr; USE THIS</b> (fits free Colab)</td><td><a href="https://www.kaggle.com/datasets/nih-chest-xrays/sample">kaggle.com/datasets/nih-chest-xrays/sample</a></td></tr>
+  <tr><td>Dataset — full (112,120 images, ~45 GB)</td><td>Optional (advanced only)</td><td><a href="https://www.kaggle.com/datasets/nih-chest-xrays/data">kaggle.com/datasets/nih-chest-xrays/data</a></td></tr>
+</table>
+
+<h2>What you must build</h2>
+<ol>
+  <li><span class="step">Load the data &amp; labels.</span> One X-ray can show several diseases → this is a
+      <b>multi-label</b> problem (14 yes/no outputs), not pick-one.</li>
+  <li><span class="step">Split by PATIENT, not by image.</span> The same patient has many X-rays — if you split by
+      image, your score is fake. Split so no patient is in both train and test.</li>
+  <li><span class="step">Train a model with transfer learning.</span> Start from a network pre-trained on ImageNet
+      and adapt it to X-rays (this is what CheXNet does).</li>
+  <li><span class="step">Evaluate with per-disease AUC-ROC</span> — <b>not</b> accuracy (the data is very imbalanced).
+      Compare your numbers to the paper.</li>
+  <li><span class="step">Add Grad-CAM heatmaps</span> — show where on the X-ray the model looked.</li>
+  <li><span class="step">Build a REAL web app and deploy it.</span> A <b>backend API</b> that serves your model +
+      <b>your own frontend</b> (upload an X-ray → see predictions + heatmap). Deploy both so anyone can use the link.</li>
+</ol>
+
+<div class="warn"><b>Deployment rules (important):</b>
+  <ul style="margin:6px 0">
+    <li>You must build your <b>own frontend</b> — <b>NOT</b> an auto-generated demo (no Gradio/Streamlit UI).</li>
+    <li><b>Do NOT use Hugging Face</b> (no Spaces, no HF hosting).</li>
+    <li>Free hosting only, no credit card. (Hint: a backend on a free GPU notebook + a public tunnel, and a
+        static frontend on a free host, is one way.)</li>
+  </ul>
+</div>
+
+<h2>What to submit</h2>
+<ul>
+  <li>Your notebook: data → patient split → train → AUC → Grad-CAM.</li>
+  <li>A <b>per-disease AUC table</b> and 2–3 <b>Grad-CAM heatmaps</b>.</li>
+  <li>The <b>live web app link</b> (your frontend + backend), working.</li>
+  <li>Your frontend + backend <b>code</b>.</li>
+  <li>A short write-up: your AUCs vs the paper, and the medical disclaimer.</li>
+</ul>
+
+<h2>Rules</h2>
+<ul class="rule">
+  <li>Use the real NIH dataset (sample is fine). Real data only.</li>
+  <li>Patient-level split (no leakage). Report AUC, not accuracy.</li>
+  <li>Own frontend, no Gradio/Streamlit UI, no Hugging Face, free tools only.</li>
+</ul>
+
+<h2>How you will be graded (100 points)</h2>
+<table>
+  <tr><th>What is checked</th><th>Points</th></tr>
+  <tr><td>Multi-label set up correctly (14 disease outputs)</td><td class="pts">10</td></tr>
+  <tr><td>Patient-level split (no data leakage)</td><td class="pts">15</td></tr>
+  <tr><td>Transfer-learning model trains</td><td class="pts">15</td></tr>
+  <tr><td>Evaluation by per-disease AUC-ROC (not accuracy)</td><td class="pts">20</td></tr>
+  <tr><td>Grad-CAM heatmaps produced and sensible</td><td class="pts">10</td></tr>
+  <tr><td><b>Real web app deployed</b> — own frontend + backend API, no Gradio, no Hugging Face</td><td class="pts">25</td></tr>
+  <tr><td>Medical disclaimer + short write-up vs the paper</td><td class="pts">5</td></tr>
+  <tr><td><b>Total</b></td><td class="pts"><b>100</b></td></tr>
+</table>
+
+<h2>Hints (allowed)</h2>
+<ul class="rule">
+  <li>Search: "CheXNet DenseNet-121 PyTorch", "multi-label chest x-ray AUC", "Grad-CAM pytorch".</li>
+  <li>Libraries: <span class="pill">torch torchvision scikit-learn pandas pillow grad-cam</span>, and
+      <span class="pill">fastapi uvicorn</span> for the backend.</li>
+  <li>If Colab runs out of memory: use the sample dataset, smaller batch size, image size 224.</li>
+  <li>Deploy idea: run the backend on a free GPU notebook and expose it with a free tunnel; host your frontend on a
+      free static host; connect them.</li>
+</ul>
+
+</div></body></html>

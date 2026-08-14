@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+node_modules/
+.next/
+.artifacts_tmp/
+.env
+.env*.local
+.DS_Store
+# model weights live in backend/artifacts/ and ARE committed (28 MB, under GitHub's limit)
+scripts/
+frontend/
+notebooks/
+prompts/
+docs/

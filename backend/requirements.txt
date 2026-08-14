@@ -1,0 +1,11 @@
+# CPU-only wheels. The default CUDA build of torch is ~2.5 GB and will fail
+# Render's free-tier build; the CPU wheel is ~190 MB.
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+torch==2.3.1+cpu
+torchvision==0.18.1+cpu
+fastapi==0.111.0
+uvicorn[standard]==0.30.1
+pillow==10.3.0
+numpy==1.26.4
+python-multipart==0.0.9
