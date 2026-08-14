@@ -1,0 +1,113 @@
+{
+  "model_version": "densenet121-nih-sample-v1",
+  "arch": "densenet121",
+  "img_size": 224,
+  "classes": [
+    "Atelectasis",
+    "Cardiomegaly",
+    "Effusion",
+    "Infiltration",
+    "Mass",
+    "Nodule",
+    "Pneumonia",
+    "Pneumothorax",
+    "Consolidation",
+    "Edema",
+    "Emphysema",
+    "Fibrosis",
+    "Pleural_Thickening",
+    "Hernia"
+  ],
+  "mean_auc": 0.7633,
+  "paper_mean_auc": 0.8414,
+  "test_images": 1144,
+  "test_patients": 846,
+  "train_images": 3931,
+  "val_images": 531,
+  "per_class": {
+    "Atelectasis": {
+      "auc": 0.7489,
+      "support": 85,
+      "paper_auc": 0.8094,
+      "threshold": 0.4999000132083893
+    },
+    "Cardiomegaly": {
+      "auc": 0.84,
+      "support": 35,
+      "paper_auc": 0.9248,
+      "threshold": 0.35199999809265137
+    },
+    "Effusion": {
+      "auc": 0.7878,
+      "support": 129,
+      "paper_auc": 0.8638,
+      "threshold": 0.4203999936580658
+    },
+    "Infiltration": {
+      "auc": 0.6507,
+      "support": 204,
+      "paper_auc": 0.7345,
+      "threshold": 0.4650999903678894
+    },
+    "Mass": {
+      "auc": 0.7534,
+      "support": 49,
+      "paper_auc": 0.8676,
+      "threshold": 0.32269999384880066
+    },
+    "Nodule": {
+      "auc": 0.6389,
+      "support": 56,
+      "paper_auc": 0.7802,
+      "threshold": 0.42170000076293945
+    },
+    "Pneumonia": {
+      "auc": 0.6696,
+      "support": 14,
+      "paper_auc": 0.768,
+      "threshold": 0.1525000035762787
+    },
+    "Pneumothorax": {
+      "auc": 0.7905,
+      "support": 55,
+      "paper_auc": 0.8887,
+      "threshold": 0.763700008392334
+    },
+    "Consolidation": {
+      "auc": 0.7786,
+      "support": 47,
+      "paper_auc": 0.7901,
+      "threshold": 0.5633999705314636
+    },
+    "Edema": {
+      "auc": 0.8563,
+      "support": 35,
+      "paper_auc": 0.8878,
+      "threshold": 0.3808000087738037
+    },
+    "Emphysema": {
+      "auc": 0.8871,
+      "support": 35,
+      "paper_auc": 0.9371,
+      "threshold": 0.2935999929904938
+    },
+    "Fibrosis": {
+      "auc": 0.7136,
+      "support": 18,
+      "paper_auc": 0.8047,
+      "threshold": 0.18459999561309814
+    },
+    "Pleural_Thickening": {
+      "auc": 0.7093,
+      "support": 31,
+      "paper_auc": 0.8062,
+      "threshold": 0.241799995303154
+    },
+    "Hernia": {
+      "auc": 0.8619,
+      "support": 2,
+      "paper_auc": 0.9164,
+      "threshold": 0.21879999339580536
+    }
+  }
+}
