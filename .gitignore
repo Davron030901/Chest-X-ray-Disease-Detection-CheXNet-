@@ -8,5 +8,4 @@ node_modules/
 .env*.local
 .DS_Store
 # model weights live in backend/artifacts/ and ARE committed (28 MB, under GitHub's limit)
-frontend/
 prompts/
