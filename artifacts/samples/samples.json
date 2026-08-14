@@ -1,0 +1,20 @@
+[
+  {
+    "file": "sample-1.png",
+    "expected": "Cardiomegaly",
+    "probability": 0.844,
+    "ground_truth": "Cardiomegaly|Effusion"
+  },
+  {
+    "file": "sample-2.png",
+    "expected": "Effusion",
+    "probability": 0.977,
+    "ground_truth": "Atelectasis|Effusion"
+  },
+  {
+    "file": "sample-3.png",
+    "expected": "Pneumothorax",
+    "probability": 0.96,
+    "ground_truth": "Emphysema|Pneumothorax"
+  }
+]

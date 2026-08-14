@@ -1,0 +1,16 @@
+Pathology,Test positives,My AUC,Paper AUC,Delta
+Emphysema,35,0.8871,0.9371,-0.05
+Hernia,2,0.8619,0.9164,-0.0545
+Edema,35,0.8563,0.8878,-0.0315
+Cardiomegaly,35,0.84,0.9248,-0.0848
+Pneumothorax,55,0.7905,0.8887,-0.0982
+Effusion,129,0.7878,0.8638,-0.076
+Consolidation,47,0.7786,0.7901,-0.0115
+Mass,49,0.7534,0.8676,-0.1142
+Atelectasis,85,0.7489,0.8094,-0.0605
+Fibrosis,18,0.7136,0.8047,-0.0911
+Pleural_Thickening,31,0.7093,0.8062,-0.0969
+Pneumonia,14,0.6696,0.768,-0.0984
+Infiltration,204,0.6507,0.7345,-0.0838
+Nodule,56,0.6389,0.7802,-0.1413
+MEAN,795,0.7633,0.8414,-0.0781

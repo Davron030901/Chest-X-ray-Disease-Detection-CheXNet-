@@ -5,7 +5,21 @@ import type { Config } from "tailwindcss";
 const rgb = (v: string) => `rgb(var(${v}) / <alpha-value>)`;
 
 const config: Config = {
-  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./hooks/**/*.{ts,tsx}"],
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./hooks/**/*.{ts,tsx}",
+    // lib/severity.ts holds the band -> class lookup maps. Leaving it out silently
+    // purges any severity class not also hard-coded in a component.
+    "./lib/**/*.{ts,tsx}",
+  ],
+  // The severity classes are produced by a runtime lookup, which is exactly the
+  // pattern Tailwind's static scanner cannot follow. Pin them so a refactor that
+  // moves the maps around cannot make a probability band render colourless again.
+  safelist: [
+    "bg-sev-low", "bg-sev-mod", "bg-sev-high", "bg-sev-crit",
+    "text-sev-low", "text-sev-mod", "text-sev-high", "text-sev-crit",
+  ],
   theme: {
     extend: {
       colors: {

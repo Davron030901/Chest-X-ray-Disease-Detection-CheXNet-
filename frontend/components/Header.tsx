@@ -20,15 +20,17 @@ export function Header({ state, repoUrl }: { state: ServerState; repoUrl: string
         <div className="flex items-center gap-2">
           <StatusPill state={state} />
           <ThemeToggle />
-          <a
-            href={repoUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            aria-label="Source code on GitHub"
-            className="grid h-9 w-9 place-items-center rounded-lg border border-hairline bg-surface text-muted transition-colors duration-150 hover:bg-elevated hover:text-ink"
-          >
-            <Github className="h-4 w-4" />
-          </a>
+          {repoUrl && (
+            <a
+              href={repoUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label="Source code on GitHub"
+              className="grid h-9 w-9 place-items-center rounded-lg border border-hairline bg-surface text-muted transition-colors duration-150 hover:bg-elevated hover:text-ink"
+            >
+              <Github className="h-4 w-4" />
+            </a>
+          )}
         </div>
       </div>
     </header>

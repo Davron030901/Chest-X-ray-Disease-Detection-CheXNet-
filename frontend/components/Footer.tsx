@@ -53,16 +53,20 @@ export function Footer({
           <div>
             <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.08em] text-faint">Code</p>
             <ul className="space-y-1">
-              <li>
-                <a className="text-accent underline-offset-2 hover:underline" href={frontendRepo} target="_blank" rel="noreferrer noopener">
-                  Frontend repository
-                </a>
-              </li>
-              <li>
-                <a className="text-accent underline-offset-2 hover:underline" href={backendRepo} target="_blank" rel="noreferrer noopener">
-                  Backend repository
-                </a>
-              </li>
+              {frontendRepo && (
+                <li>
+                  <a className="text-accent underline-offset-2 hover:underline" href={frontendRepo} target="_blank" rel="noreferrer noopener">
+                    Frontend repository
+                  </a>
+                </li>
+              )}
+              {backendRepo && (
+                <li>
+                  <a className="text-accent underline-offset-2 hover:underline" href={backendRepo} target="_blank" rel="noreferrer noopener">
+                    Backend repository
+                  </a>
+                </li>
+              )}
               <li>
                 <a className="text-accent underline-offset-2 hover:underline" href={`${apiUrl}/docs`} target="_blank" rel="noreferrer noopener">
                   API documentation

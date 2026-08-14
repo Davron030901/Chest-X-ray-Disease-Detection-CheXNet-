@@ -15,8 +15,10 @@ import { usePredict } from "@/hooks/usePredict";
 import { API_URL, getMeta } from "@/lib/api";
 import type { Meta } from "@/lib/types";
 
-const FRONTEND_REPO = "https://github.com/your-username/chexnet-frontend";
-const BACKEND_REPO = "https://github.com/your-username/chexnet-backend";
+// Set these in Vercel (Settings -> Environment Variables) so the links are real.
+// If unset, the link is hidden rather than pointing at a dead placeholder URL.
+const FRONTEND_REPO = process.env.NEXT_PUBLIC_FRONTEND_REPO ?? "";
+const BACKEND_REPO = process.env.NEXT_PUBLIC_BACKEND_REPO ?? "";
 
 export default function Page() {
   const { state, elapsed } = useHealth();

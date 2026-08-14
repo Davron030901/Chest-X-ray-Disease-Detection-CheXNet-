@@ -117,7 +117,7 @@ git push -u origin main
 Back on Render → your service → **Environment** → set:
 
 ```
-ALLOWED_ORIGINS = https://your-app.vercel.app,http://localhost:3000
+     = https://your-app.vercel.app,http://localhost:3000
 ```
 
 **Save changes** (this triggers a redeploy). Vercel preview URLs are already matched by the
