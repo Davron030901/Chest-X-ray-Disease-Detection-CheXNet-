@@ -5,10 +5,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { cn } from "@/lib/cn";
 
-const SAMPLES = [
-  { file: "sample-1.png", caption: "Sample 1" },
-  { file: "sample-2.png", caption: "Sample 2" },
-  { file: "sample-3.png", caption: "Sample 3" },
+type SampleMeta = { file: string; expected: string; probability: number; ground_truth: string };
+
+const FALLBACK: SampleMeta[] = [
+  { file: "sample-1.png", expected: "", probability: 0, ground_truth: "" },
+  { file: "sample-2.png", expected: "", probability: 0, ground_truth: "" },
+  { file: "sample-3.png", expected: "", probability: 0, ground_truth: "" },
 ];
 
 export function UploadZone({
@@ -23,6 +25,16 @@ export function UploadZone({
   const [dragging, setDragging] = useState(false);
   const [loadingSample, setLoadingSample] = useState<string | null>(null);
   const [sampleError, setSampleError] = useState<string | null>(null);
+  const [samples, setSamples] = useState<SampleMeta[]>(FALLBACK);
+
+  // samples.json ships beside the images and carries the true labels from the test split,
+  // so the buttons can say what the case actually is instead of "Sample 1".
+  useEffect(() => {
+    fetch("/samples/samples.json")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => Array.isArray(j) && j.length > 0 && setSamples(j))
+      .catch(() => undefined);
+  }, []);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Paste-from-clipboard: radiologists and students both live in screenshot tools.
@@ -139,20 +151,26 @@ export function UploadZone({
       <div className="mt-5 flex flex-col items-center gap-3">
         <span className="text-[12px] text-faint">or try a sample</span>
         <div className="flex flex-wrap justify-center gap-2">
-          {SAMPLES.map((s) => (
+          {samples.map((s, i) => (
             <button
               key={s.file}
               type="button"
               disabled={busy}
               onClick={() => loadSample(s.file)}
-              className="flex min-h-[44px] items-center gap-2 rounded-lg border border-strong px-3 py-2 text-[13px] text-muted transition-colors duration-150 hover:bg-elevated hover:text-ink disabled:opacity-50"
+              title={s.ground_truth ? `Ground truth: ${s.ground_truth.replace(/\|/g, " + ")}` : undefined}
+              className="flex min-h-[44px] items-center gap-2 rounded-lg border border-strong px-3 py-2 text-left text-[13px] text-muted transition-colors duration-150 hover:bg-elevated hover:text-ink disabled:opacity-50"
             >
               {loadingSample === s.file ? (
-                <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+                <Loader2 className="h-4 w-4 shrink-0 animate-spin" aria-hidden />
               ) : (
-                <span className="h-4 w-4 rounded bg-inset" aria-hidden />
+                <span className="h-4 w-4 shrink-0 rounded bg-inset" aria-hidden />
               )}
-              {s.caption}
+              <span className="flex flex-col leading-tight">
+                <span>{s.ground_truth ? s.ground_truth.replace(/\|/g, " + ") : `Sample ${i + 1}`}</span>
+                {s.ground_truth && (
+                  <span className="text-[11px] text-faint">labelled test case</span>
+                )}
+              </span>
             </button>
           ))}
         </div>

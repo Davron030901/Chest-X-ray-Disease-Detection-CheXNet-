@@ -75,10 +75,26 @@ def main() -> int:
         shutil.copy(hits[0], REPORT / name)
         print(f"  copied   {name:<28} -> artifacts/")
 
-    pngs = sorted(base.rglob("sample-*.png"))[:3]
+    # Guard: refuse to overwrite good sample X-rays with something that is not one.
+    # These files are committed and serve the live demo; a bad write is a visible outage.
+    def is_radiograph(path: Path) -> bool:
+        try:
+            from PIL import Image
+            with Image.open(path) as im:
+                return min(im.size) >= 256
+        except Exception:
+            return False
+
+    pngs = [p for p in sorted(base.rglob("sample-*.png")) if is_radiograph(p)][:3]
     for i, p in enumerate(pngs, start=1):
         shutil.copy(p, SAMPLES / f"sample-{i}.png")
-        print(f"  copied   {p.name:<28} -> frontend/public/samples/")
+        print(f"  copied   {p.name:<28} -> frontend/public/samples/  "
+              f"({p.stat().st_size/1024:.0f} KB)")
+
+    meta = list(base.rglob("samples.json"))
+    if meta:
+        shutil.copy(meta[0], SAMPLES / "samples.json")
+        print(f"  copied   samples.json                 -> frontend/public/samples/")
     if len(pngs) < 3:
         print(f"  WARNING  only {len(pngs)}/3 sample X-rays found; the 'Try a sample' buttons need 3")
 

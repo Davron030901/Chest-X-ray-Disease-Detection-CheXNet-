@@ -15,10 +15,11 @@ import { usePredict } from "@/hooks/usePredict";
 import { API_URL, getMeta } from "@/lib/api";
 import type { Meta } from "@/lib/types";
 
-// Set these in Vercel (Settings -> Environment Variables) so the links are real.
-// If unset, the link is hidden rather than pointing at a dead placeholder URL.
-const FRONTEND_REPO = process.env.NEXT_PUBLIC_FRONTEND_REPO ?? "";
-const BACKEND_REPO = process.env.NEXT_PUBLIC_BACKEND_REPO ?? "";
+// Monorepo: frontend/ and backend/ live in the same repository.
+// Override per-deployment with NEXT_PUBLIC_FRONTEND_REPO / NEXT_PUBLIC_BACKEND_REPO.
+const REPO = "https://github.com/Davron030901/Chest-X-ray-Disease-Detection-CheXNet-";
+const FRONTEND_REPO = process.env.NEXT_PUBLIC_FRONTEND_REPO || `${REPO}/tree/main/frontend`;
+const BACKEND_REPO = process.env.NEXT_PUBLIC_BACKEND_REPO || `${REPO}/tree/main/backend`;
 
 export default function Page() {
   const { state, elapsed } = useHealth();
@@ -131,6 +132,7 @@ export default function Page() {
         backendRepo={BACKEND_REPO}
         apiUrl={API_URL}
         meanAuc={meta?.mean_auc ?? null}
+        notebookUrl={`${REPO}/blob/main/notebook/chexnet_train.ipynb`}
       />
     </>
   );

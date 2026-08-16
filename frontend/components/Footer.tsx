@@ -5,11 +5,13 @@ export function Footer({
   backendRepo,
   apiUrl,
   meanAuc,
+  notebookUrl,
 }: {
   frontendRepo: string;
   backendRepo: string;
   apiUrl: string;
   meanAuc: number | null;
+  notebookUrl?: string;
 }) {
   return (
     <footer className="border-t border-hairline bg-surface">
@@ -72,6 +74,13 @@ export function Footer({
                   API documentation
                 </a>
               </li>
+              {notebookUrl && (
+                <li>
+                  <a className="text-accent underline-offset-2 hover:underline" href={notebookUrl} target="_blank" rel="noreferrer noopener">
+                    Training notebook
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </div>
